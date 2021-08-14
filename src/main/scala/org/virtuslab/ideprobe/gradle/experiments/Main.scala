@@ -1,5 +1,6 @@
 package org.virtuslab.ideprobe.gradle.experiments
 
+import org.virtuslab.ideprobe.Extensions.PathExtension
 import org.virtuslab.ideprobe.{Config, IdeProbeFixture}
 import org.virtuslab.ideprobe.robot.RobotPluginExtension
 
@@ -45,10 +46,36 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
         |}
         |
         |""".stripMargin)
-    fixtureFromConfig(config).run { intelliJ =>
-      intelliJ.probe.withRobot.openProject(intelliJ.workspace)
-      intelliJ.probe.projectModel()
+
+
+    println("Starting")
+    val fixture = fixtureFromConfig(config)
+
+    val ws = fixture.setupWorkspace()
+    println("WS ready")
+    val installed = fixture.installIntelliJ()
+    println("Installed")
+
+    try {
+      val started = fixture.startIntelliJ(ws, installed)
+      println("Started")
+    } catch {
+      case e: Throwable =>
+      println("ERRROR")
+      e.printStackTrace()
     }
+
+//    println("Again")
+//    fixture.run { intelliJ =>
+//      intelliJ.workspace.directChildren().foreach(println)
+//      println("A")
+//      intelliJ.probe.listOpenProjects()
+//      println("B")
+//      intelliJ.probe.withRobot.openProject(intelliJ.workspace)
+//      println("C")
+//      intelliJ.probe.projectModel()
+//      println("D")
+//    }
   }
 
 }

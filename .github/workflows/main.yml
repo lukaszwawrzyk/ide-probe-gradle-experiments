@@ -22,8 +22,7 @@ jobs:
           sudo rm -rf /opt/az
           df -h
       - name: Prepare the container
-        run: |
-          DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build --tag ideprobe-gradle:local .
+        run: docker build --tag ideprobe-gradle:local .
       - name: Run
         run: ./ci/run_docker.sh bash ci/run_benchmarks.sh
       - name: Upload screenshots
