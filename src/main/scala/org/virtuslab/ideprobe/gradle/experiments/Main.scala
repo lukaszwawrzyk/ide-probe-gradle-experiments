@@ -20,8 +20,8 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
         |  driver {
         |    vmOptions = [
         |      "-ea",
-        |      "-Xms12288m",
-        |      "-Xmx12288m",
+        |      "-Xms2G",
+        |      "-Xmx12G",
         |      "-XX:+UseCodeCacheFlushing",
         |      "-XX:ReservedCodeCacheSize=1024m",
         |      "-XX:+UseG1GC",
@@ -48,34 +48,18 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
         |""".stripMargin)
 
 
-    println("Starting")
     val fixture = fixtureFromConfig(config)
-
-    val ws = fixture.setupWorkspace()
-    println("WS ready")
-    val installed = fixture.installIntelliJ()
-    println("Installed")
-
-    try {
-      val started = fixture.startIntelliJ(ws, installed)
-      println("Started")
-    } catch {
-      case e: Throwable =>
-      println("ERRROR")
-      e.printStackTrace()
+    fixture.run { intelliJ =>
+      intelliJ.workspace.directChildren().foreach(println)
+      println("A")
+      intelliJ.probe.listOpenProjects()
+      println("B")
+      intelliJ.probe.openProject(intelliJ.workspace)
+      println("C")
+      intelliJ.probe.projectModel()
+      println("D")
     }
-
-//    println("Again")
-//    fixture.run { intelliJ =>
-//      intelliJ.workspace.directChildren().foreach(println)
-//      println("A")
-//      intelliJ.probe.listOpenProjects()
-//      println("B")
-//      intelliJ.probe.withRobot.openProject(intelliJ.workspace)
-//      println("C")
-//      intelliJ.probe.projectModel()
-//      println("D")
-//    }
+    sys.exit(0)
   }
 
 }
