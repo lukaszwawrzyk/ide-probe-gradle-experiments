@@ -1,7 +1,7 @@
 package org.virtuslab.ideprobe.gradle.experiments
 
 import org.virtuslab.ideprobe.Extensions.PathExtension
-import org.virtuslab.ideprobe.{Config, IdeProbeFixture}
+import org.virtuslab.ideprobe.{Config, IdeProbeFixture, Shell}
 import org.virtuslab.ideprobe.robot.RobotPluginExtension
 
 object Main extends IdeProbeFixture with RobotPluginExtension {
@@ -59,7 +59,9 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
       intelliJ.probe.projectModel()
       println("D")
     }
-    sys.exit(0)
+    println("end")
+    Shell.run("ps", "aux")
+    Shell.run("kill", "-9", ProcessHandle.current.pid.toString)
   }
 
 }
