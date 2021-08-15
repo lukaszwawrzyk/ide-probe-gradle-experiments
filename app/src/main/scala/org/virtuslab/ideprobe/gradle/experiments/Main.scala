@@ -21,26 +21,7 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
         |    vmOptions = [
         |      "-ea",
         |      "-Xms2G",
-        |      "-Xmx12G",
-        |      "-XX:+UseCodeCacheFlushing",
-        |      "-XX:ReservedCodeCacheSize=1024m",
-        |      "-XX:+UseG1GC",
-        |      "-XX:SoftRefLRUPolicyMSPerMB=50",
-        |      "-XX:CICompilerCount=2",
-        |      "-XX:+HeapDumpOnOutOfMemoryError",
-        |      "-XX:-OmitStackTraceInFastThrow",
-        |      "-Dsun.io.useCanonPrefixCache=false",
-        |      "-Dsun.io.useCanonCaches=false",
-        |      "-Djava.net.preferIPv4Stack=true",
-        |      "-Djdk.attach.allowAttachSelf=true",
-        |      "-Djdk.module.illegalAccess.silent=true",
-        |      "-Dkotlinx.coroutines.debug=off",
-        |      "-Dfile.encoding=UTF-8",
-        |      "-Dgit.blocking.read=false",
-        |      "-Dvcs.log.index.git=false",
-        |      "-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log",
-        |      "-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof",
-        |      "-Dide.no.platform.update=true"
+        |      "-Dfile.encoding=UTF-8"
         |    ]
         |  }
         |}
@@ -61,6 +42,7 @@ object Main extends IdeProbeFixture with RobotPluginExtension {
     }
     println("end")
     Shell.run("ps", "aux")
+    sys.exit(0)
   }
 
 }
