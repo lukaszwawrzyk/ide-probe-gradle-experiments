@@ -4,7 +4,7 @@ set -x
 
 DOCKER_IMAGE=ideprobe-gradle:local
 DOCKER_DIRECTORY=/tmp/ide-probe/screenshots
-HOST_DIRECTORY=/tmp/ide-probe/output
+HOST_DIRECTORY=/tmp/ide-probe/screenshots
 
 mkdir -p "${HOST_DIRECTORY}"
 docker run  \

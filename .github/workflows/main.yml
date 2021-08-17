@@ -24,10 +24,10 @@ jobs:
       - name: Prepare the container
         run: docker build --tag ideprobe-gradle:local .
       - name: Run
-        run: ./ci/run_docker.sh bash ci/run_benchmarks.sh
+        run: ./ci/run_docker.sh bash ci/run.sh
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: screenshots
-          path: /tmp/ideprobe/output
+          path: /tmp/ide-probe/screenshots

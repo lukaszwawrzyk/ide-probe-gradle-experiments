@@ -1,12 +1,17 @@
-scalaVersion := "2.13.3"
-name := "gradle-experiments"
+name := "ideprobe-gradle"
 
-val ideProbeVersion = "0.13.1"
+organization.in(ThisBuild) := "com.twitter.ideprobe"
+version.in(ThisBuild) := "0.1"
+scalaVersion.in(ThisBuild) := "2.13.1"
+resolvers.in(ThisBuild) ++= Dependencies.ideProbe.resolvers
+parallelExecution in ThisBuild := false
+skip in publish := true
 
-libraryDependencies += "org.virtuslab.ideprobe" %% "driver" % ideProbeVersion
-libraryDependencies += "org.virtuslab.ideprobe" %% "robot-driver" % ideProbeVersion
-
-ThisBuild / resolvers += MavenRepository(
-  "jetbrains-3rd",
-  "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies"
-)
+lazy val benchmarks = project
+  .in(file("benchmarks")).settings(
+    libraryDependencies ++= Dependencies.junit,
+    libraryDependencies += Dependencies.ideProbe.jUnitDriver,
+    libraryDependencies += Dependencies.ideProbe.benchmarks,
+    libraryDependencies += Dependencies.ideProbe.robotDriver,
+    fork in run := true,
+  )
