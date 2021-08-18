@@ -24,7 +24,7 @@ jobs:
       - name: Prepare the container
         run: docker build --tag ideprobe-gradle:local .
       - name: Run
-        run: ./ci/run_docker.sh bash ci/run.sh
+        run: ./ci/run_docker.sh sbt benchmarks/test
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v2
