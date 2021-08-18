@@ -36,6 +36,6 @@ class Main {
       fixture.withVersion(IntelliJVersion.release("2021.3.4", build = "203.8084.24"))
     })
 
-    BenchmarkSuite("default", Seq(bench2021_1, bench2020_3)).run(new ConsoleBenchmarkReporter)
+    BenchmarkSuite("open-project", Seq(bench2021_1, bench2020_3)).run(new ConsoleBenchmarkReporter)
   }
 }
