@@ -36,7 +36,9 @@ class ProjectGenerator(moduleCount: Int, moduleSize: Int = 20) {
       }
       moduleName
     }
-    val includeModules = modules.map(module => s"'$module'").mkString("\ninclude(", ", ", ")")
+    val includeModules = modules.grouped(200)
+      .map(modules => modules.map(module => s"'$module'").mkString("\ninclude(", ", ", ")"))
+      .mkString
     root.resolve("settings.gradle").edit(content => content + includeModules)
   }
 }
@@ -64,6 +66,6 @@ class GradleBenchmark(
 }
 
 object Main extends App {
-  val benchmarks = List(1, 10, 25, 50, 75, 100, 150, 200, 250).map(size => new GradleBenchmark(size.toString, new ProjectGenerator(size)))
+  val benchmarks = List(10, 100, 200, 500, 1000, 2000).map(size => new GradleBenchmark(size.toString, new ProjectGenerator(size)))
   BenchmarkSuite("open-project", benchmarks).run(new ConsoleBenchmarkReporter)
 }
