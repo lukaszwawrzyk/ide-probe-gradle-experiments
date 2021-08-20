@@ -64,6 +64,6 @@ class GradleBenchmark(
 }
 
 object Main extends App {
-  val benchmarks = List(1, 10, 50, 100, 250).map(size => new GradleBenchmark(size.toString, new ProjectGenerator(size)))
+  val benchmarks = List(1, 10, 25, 50, 75, 100, 150, 200, 250).map(size => new GradleBenchmark(size.toString, new ProjectGenerator(size)))
   BenchmarkSuite("open-project", benchmarks).run(new ConsoleBenchmarkReporter)
 }
